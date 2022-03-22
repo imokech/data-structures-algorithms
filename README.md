@@ -9,6 +9,27 @@ languages. Along with data structures, it is also very important to know how to 
 a problem or find a solution using these data structures.
 
 (it will be completed ...)
+
+## languages 
+
+language | Big O 
+--- | --- 
+Lookup | O(1)
+Push* | O(1) 
+Insert | O(n)
+Delete | O(n)
+
+Data Structure | Languages | Examples | Algorithm
+--- | --- | --- | --- 
+Arrays | Javascript, (PHP soon) | Not yet | Not yet
+Stacks | - | Not yet | Not yet
+Queues | - | Not yet | Not yet
+Linked Lists | - | Not yet | Not yet
+Trees | - | Not yet | Not yet
+Tries | - | Not yet | Not yet
+Graphs | - | Not yet | Not yet
+hash Tables | - | Not yet | Not yet
+
 ## Array
 
 Action | Big O 
@@ -42,3 +63,6 @@ for( var i = 0; i < someArray.length; i++){  // O(n)
 }
 ```
 
+## Hash Tables 
+### Other names
+Dictionary, maps, hash maps, objects
