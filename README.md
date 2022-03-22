@@ -62,7 +62,3 @@ for( var i = 0; i < someArray.length; i++){  // O(n)
     }
 }
 ```
-
-## Hash Tables 
-### Other names
-Dictionary, maps, hash maps, objects
