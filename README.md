@@ -18,7 +18,7 @@ Push* | O(1)
 Insert | O(n)
 Delete | O(n)
 
-* in dynamic array it can be O(n)
+`*` in dynamic array it can be O(n)
 
 ### Array in Use (Javascript)
 
