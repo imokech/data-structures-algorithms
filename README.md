@@ -10,18 +10,18 @@ a problem or find a solution using these data structures.
 
 (it will be completed ...)
 
-## languages 
+## Data Structures and languages
 
 Data Structure | Languages | Examples | Algorithm
 --- | --- | --- | --- 
-Arrays | Javascript, (PHP soon) | Not yet | Not yet
+Arrays | Javascript, (PHP soon) | ✔ | Not yet
 Stacks | - | Not yet | Not yet
 Queues | - | Not yet | Not yet
 Linked Lists | - | Not yet | Not yet
 Trees | - | Not yet | Not yet
 Tries | - | Not yet | Not yet
 Graphs | - | Not yet | Not yet
-hash Tables | - | Not yet | Not yet
+Hash Tables | Javascript | ✔ | Not yet
 
 ## Array
 
@@ -54,4 +54,105 @@ for( var i = 0; i < someArray.length; i++){  // O(n)
         someArray.splice(i, 1); 
     }
 }
+```
+## Hash Tables
+### other names
+- Javascript: object, map, set
+- Ruby: hash
+- Java: map
+- Python: dictionary
+- ...
+
+Action | Big O 
+--- | --- 
+Insert | O(n)
+Lookup* | O(1)
+Delete | O(n)
+Search | O(1) 
+
+`*` depends on the hash funciton, it might take `O(n)`
+
+One thing to keep in mind is Collision.
+when you have a collision it slows down reading and writing with a hash table with `O(n/k)` (k is the size of your hash table) and we remove constants and simplify things it becomes an `O(n)`
+
+### Hash Table in Use (Javascript)
+
+``` JAVASCRIPT
+let user = {
+    age: 23,
+    name: 'Mike',
+    family: 'Specter',
+    active: true,
+    tellYourAge:  function () {
+        console.log('My age is :' + this.age);
+    }
+}
+
+user.age // O(1)
+user.city = 'Oslo'; // O(1)
+user.tellYourAge(); // O(1)
+
+class HashTable {
+constructor (size) {
+    this.data = new Array(size)
+}
+
+// this is a private property
+_hash(key) {
+    let hash = 0;
+    for (let i=0; i < key.length; i++) {
+    // charCodeAt : represent utf-16 code (0 - 65535)
+    hash = (hash + key.charCodeAt(i) * i) % this.data.length
+    }
+
+    return hash;
+}
+
+set(key, value) {
+    let address = this._hash(key);
+
+    if (!this.data[address]) {
+    this.data[address] = [];
+    }
+
+    this.data[address].push([key, value]);
+
+    return this.data
+}
+
+get(key) {
+    let address = this._hash(key);
+    const currentBucket = this.data[address];
+
+    if (currentBucket.length) {
+    for (let i = 0; i , currentBucket.length; i++) 
+    {
+        if (currentBucket[i][0] === key) {
+            return currentBucket[i][1];
+        } 
+    }
+    }
+
+    return undefined;
+}
+
+keys() {
+    const keysArray = [];
+    
+    for (let i=0; i < this.data.length; i++) {
+    if (this.data[i]) {
+        keysArray.push(this.data[i][0][0])
+    }
+    }
+
+    return keysArray;
+}
+}
+
+const myHash = new HashTable(100);
+console.log(myHash._hash('fruits'))
+console.log(myHash.set('cucomber', 8000))
+console.log(myHash.set('apple', 5400))
+console.log(myHash.set('peach', 2572))
+console.log(myHash.get('peach'))
 ```
