@@ -10,14 +10,14 @@ a problem or find a solution using these data structures.
 
 (it will be completed ...)
 
-## Data Structures and languages
+## Table of Progress
 
 Data Structure | Languages | Examples | Algorithm
 --- | --- | --- | --- 
-Arrays | Javascript, (PHP soon) | ✔ | Not yet
+Arrays | Javascript | ✔ | Not yet
 Stacks | - | Not yet | Not yet
 Queues | - | Not yet | Not yet
-Linked Lists | - | Not yet | Not yet
+Linked Lists | Javascript, PHP | ✔ | reverse
 Trees | - | Not yet | Not yet
 Tries | - | Not yet | Not yet
 Graphs | - | Not yet | Not yet
@@ -34,7 +34,7 @@ Delete | O(n)
 
 `*` in dynamic array it can be O(n)
 
-### Array in Use (Javascript)
+### Array Implementation in Javascript
 
 ``` JAVASCRIPT
 let someArray = ['a', 'b', 'c', 'd', 'e'];
@@ -55,7 +55,14 @@ for( var i = 0; i < someArray.length; i++){  // O(n)
     }
 }
 ```
+<br>
+<br>
+
 ## Hash Tables
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/hash_collision.png" alt="imokech - Hash Table">
+
+A hash table is a data structure that implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function to compute an index, also called a hash code, into an array of buckets or slots, from which the desired value can be found. (<a href="https://en.wikipedia.org/wiki/Hash_table">Wikipedia</a>)
+
 ### other names
 - Javascript: object, map, set
 - Ruby: hash
@@ -75,7 +82,9 @@ Search | O(1)
 One thing to keep in mind is Collision.
 when you have a collision it slows down reading and writing with a hash table with `O(n/k)` (k is the size of your hash table) and we remove constants and simplify things it becomes an `O(n)`
 
-### Hash Table in Use (Javascript)
+<br>
+
+### Hash Table Implementation in Javascript
 
 ``` JAVASCRIPT
 let user = {
@@ -155,4 +164,477 @@ console.log(myHash.set('cucomber', 8000))
 console.log(myHash.set('apple', 5400))
 console.log(myHash.set('peach', 2572))
 console.log(myHash.get('peach'))
+
+```
+<br>
+<br>
+
+## Linked List
+A linked list is a linear data structure, in which the elements are not stored at contiguous memory locations. The elements in a linked list are linked using pointers as shown in the below image:
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/linked-list.png" alt="imokech - linked list" width="80%">
+
+Action | Big O 
+--- | --- 
+Prepend | O(1)
+Append | O(1)
+Insert | O(n)
+Lookup | O(n) 
+Delete | O(n) 
+
+### Linked List Implementation in Javascript
+``` JAVASCRIPT
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+    }
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  append(value) {
+    const newNode = new Node(value);
+
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+
+    return this; // references this class instanciate
+  }
+
+  prepend(value) {
+    const newNode = new Node(value);
+
+    newNode.next =  this.head;
+    this.head = newNode;
+    this.length++;
+
+    return this;
+  }
+
+  printList() {
+    const array = [];
+    let currentNode = this.head;
+    while(currentNode !== null){
+        array.push(currentNode.value)
+        currentNode = currentNode.next
+    }
+    return array;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = new Node(value);
+    const leader = this.traverseToIndex(index-1);
+    const holdingPointer = leader.next;
+    leader.next = newNode;
+    newNode.next = holdingPointer;
+    this.length++;
+
+    return this.printList();
+  }
+
+  traverseToIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    
+    while(counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    
+    return currentNode;
+  }
+
+  remove(index) {
+    const leader = this.traverseToIndex(index - 1);
+    const unwantedNode = leader.next;
+    leader.next = unwantedNode.next;
+    this.length--;
+    return this.printList();
+  }
+
+  reverse() {
+    if (!this.head.next) {
+      return this.head;
+    }
+    let first = this.head;
+    let second = first.next;
+   
+    while(second) {
+      const temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
+    }
+    this.head.next = null;
+    this.head = first;
+    
+    return this;
+  }
+}
+
+const mylinkedlist = new LinkedList(10);
+mylinkedlist.append(5);
+mylinkedlist.append(15);
+mylinkedlist.prepend(1);
+mylinkedlist.insert(1, 1000);
+mylinkedlist.insert(3, 5000);
+console.log(mylinkedlist.printList());
+mylinkedlist.reverse();
+console.log(mylinkedlist.printList());
+```
+### Linked List Implementation in PHP
+``` PHP
+
+class Node {
+  public $data;
+  public $next;
+}
+
+class LinkedList {
+    public $head;
+
+    public function __construct()
+    {
+        $this->head = null;
+    }
+  
+    public function insert($value, $position)
+    {     
+        $newNode = new Node(); 
+        $newNode->data = $value;
+        $newNode->next = null;
+
+        if($position < 1) {
+            echo "\nposition should be >= 1.";
+            return;
+        }
+
+        if ($position == 1) {
+            $newNode->next = $this->head;
+            $this->head = $newNode;
+        } else {
+            $temp = new Node();
+            $temp = $this->head;
+            for($i = 1; $i < $position-1; $i++) {
+                if($temp != null) {
+                    $temp = $temp->next;
+                }
+            }
+
+            if (is_null($temp)) {
+                echo "\nThe previous node is null.";
+                return;
+            }
+            $newNode->next = $temp->next;
+            $temp->next = $newNode;  
+        }
+    }  
+
+    public function pop()
+    {
+        if(is_null($this->head)) {
+            return null;
+        }
+
+        $temp = $this->head;
+        $this->head = $this->head->next;
+        $temp = null;  
+    }
+
+    public function prepend($value)
+    {
+        $newNode = new Node();
+        $newNode->data = $value;
+        $newNode->next = $this->head; 
+        $this->head = $newNode;   
+    }
+
+    // Push
+    public function append($value)
+    {
+        $newNode = new Node(); 
+        $newNode->data = $value;
+        $newNode->next = null;
+        $this->head = $newNode;
+
+        if(!is_null($this->head)) {
+        $temp = new Node();
+        $temp = $this->head;
+
+        while($temp->next != null) {
+            $temp = $temp->next;
+        }
+
+        $temp->next = $newNode;
+        }    
+    }
+
+    public function remove($position)
+    {     
+        if($position < 1) {
+        echo "\nposition should be >= 1.";
+        return;
+        }
+        
+        if ($position === 1 && !is_null($this->head)) {
+            $nodeToDelete = $this->head;
+            $this->head   = $this->head->next;
+            $nodeToDelete = null;
+        } else {
+            $temp = new Node();
+            $temp = $this->head;
+
+            for($i = 1; $i < $position-1; $i++) {
+                if($temp != null) {
+                    $temp = $temp->next;
+                }
+            }
+
+            if (is_null($temp) || is_null($temp->next)){
+                echo "\nThe node is already null.";
+                return;
+            }
+
+            $nodeToDelete = $temp->next;
+            $temp->next = $temp->next->next;
+            $nodeToDelete = null; 
+        }
+    } 
+
+    public function find($value)
+    {
+        $temp = new Node();
+        $temp = $this->head;
+        $found = 0;
+        $i = 0;
+
+        if (is_null($temp)){
+            echo "The list is empty.\n";
+            return;
+        }
+
+        while(!is_null($temp)) {
+            $i++;
+            if($temp->data == $value) {
+                $found++;
+                break;
+            }
+            $temp = $temp->next;
+        }
+
+        if ($found == 1) {
+            echo $value." is found at index = ".$i.".\n";
+        } else {
+            echo $value." is not found in the list.\n";
+        }
+    }
+    
+    public function reverseList()
+    {
+        if(is_null($this->head)) {
+            return null;
+        }
+
+        $prevNode = $this->head;
+        $tempNode = $this->head;
+        $currentNode = $this->head->next;
+        
+        $prevNode->next = null;
+        
+        while($currentNode != null) {
+            $tempNode = $currentNode->next;
+            $currentNode->next = $prevNode;
+            $prevNode = $currentNode;
+            $currentNode = $tempNode;
+        }
+
+        $this->head = $prevNode;
+    }   
+
+    public function printList()
+    {
+        $temp = new Node();
+        $temp = $this->head;
+        if(is_null($temp)  {
+            echo "The list is empty.\n";
+            return;
+        }
+
+        echo "The list contains: ";
+        while($temp != null) {
+            echo $temp->data." ";
+            $temp = $temp->next;
+        }
+        echo "\n";
+    }   
+};
+
+$myLinkedList = new LinkedList();
+
+$myLinkedList->append(10);
+$myLinkedList->append(20);
+$myLinkedList->append(30);
+$myLinkedList->printList();
+
+$myLinkedList->remove(2);
+$myLinkedList->printList();
+
+$myLinkedList->remove(1);
+$myLinkedList->printList();  
+
+/* 
+ *  Other example with SplDoublyLinkedList
+ **/
+$linkedList = new SplDoublyLinkedList();
+
+$linkedList->push('a');
+$linkedList->push('b');
+$linkedList->push('c');
+$linkedList->push('d');
+
+// FIFO : First In First Out => IT_MODE_FIFO
+// LIFO : Last In First Out  => IT_MODE_LIFO
+$linkedList->setIterationMode(SplDoublyLinkedList::IT_MODE_FIFO);
+for ($linkedList->rewind(); $linkedList->valid(); $linkedList->next()) {
+    echo $list->current()."\n";
+    echo $list->key()."\n";
+}
+// Insert
+$linkedList->add(0, 'x'); // O(n)
+// Append
+$linkedList->push('e'); // O(1)
+// Prepend
+$linkedList->unshift('e'); // O(1)
+// Delete
+unset($linkedList[0]); // O(n)
+
+```
+<br>
+
+More information (for the curious!)
+Type | Source 
+--- | --- 
+Array Vs Linked List | https://www.youtube.com/watch?v=DyG9S9nAlUM
+Visual LinkedList | https://visualgo.net/en/list?slide=1
+
+<br>
+<br>
+
+## Doubly Linked List
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/doubly_linked_list.gif">
+
+### Doubly Linked List Implementation in Javascript
+``` JAVASCRIPT
+class DoublyNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class DoublyLinkedList {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+      prev: null
+    }
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  append(value) {
+    const newNode = new DoublyNode(value);
+
+    newNode.prev = this.tail;
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+
+    return this; // references this class instanciate
+  }
+
+  prepend(value) {
+    const newNode = new DoublyNode(value);
+
+    newNode.next =  this.head;
+    this.head.prev = newNode;
+    this.head = newNode;
+    this.length++;
+
+    return this;
+  }
+
+  printList() {
+    const array = [];
+    let currentNode = this.head;
+    while(currentNode !== null){
+        array.push(currentNode.value)
+        currentNode = currentNode.next
+    }
+    return array;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = new DoublyNode(value);
+
+    const leader  = this.traverseToIndex(index-1);
+    const follwer = leader.next;
+    leader.next  = newNode;
+    newNode.prev = leader;
+    newNode.next = follwer;
+    follwer.prev = newNode;
+    this.length++;
+
+    return this.printList();
+  }
+
+  traverseToIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    
+    while(counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    
+    return currentNode;
+  }
+
+  remove(index) {
+    const leader = this.traverseToIndex(index - 1);
+    const unwantedNode = leader.next;
+    leader.next = unwantedNode.next;
+    this.length--;
+    return this.printList();
+  }
+
+}
+
+const myDoublyLinkedList = new DoublyLinkedList(10);
+myDoublyLinkedList.append(5);
+myDoublyLinkedList.append(15);
+myDoublyLinkedList.prepend(1);
+console.log(myDoublyLinkedList);
+myDoublyLinkedList.insert(1, 1000);
+myDoublyLinkedList.insert(3, 5000);
+myDoublyLinkedList.insert(1);
 ```
