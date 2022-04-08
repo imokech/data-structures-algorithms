@@ -15,7 +15,7 @@ a problem or find a solution using these data structures.
 Data Structure | Languages | Examples | Algorithm
 --- | --- | --- | --- 
 Arrays | Javascript | ✔ | Not yet
-Stacks | - | Not yet | Not yet
+Stacks | Javascript, PHP | Not yet | Not yet
 Queues | - | Not yet | Not yet
 Linked Lists | Javascript, PHP | ✔ | reverse
 Trees | - | Not yet | Not yet
@@ -637,4 +637,154 @@ console.log(myDoublyLinkedList);
 myDoublyLinkedList.insert(1, 1000);
 myDoublyLinkedList.insert(3, 5000);
 myDoublyLinkedList.insert(1);
+```
+
+## Stack
+
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/stack.png">
+
+Action | Big O 
+--- | --- 
+Lookup | O(n)
+Pop | O(1) 
+Push | O(1)
+Peek | O1n)
+
+A stack is a linear data structure that follows the principle of Last In First Out (LIFO). This means the last element inserted inside the stack is removed first.
+
+### Stack Implementation in Javascript
+
+``` JAVASCRIPT
+/**
+ * Stacks (with Linked List)
+ */
+
+class Node {
+  constructor(value){
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+    this.bottom = null;
+    this.length = 0;
+  }
+
+  peek() {
+    return this.top;
+  }
+
+  push(value) {
+    const newNode = new Node(value);
+
+    if (this.length === 0) {
+      this.top = newNode;
+      this.bottom = newNode;
+    } else {
+      const holdingPointer = this.top;
+      this.top = newNode;
+      this.top.next = holdingPointer;
+    }
+    this.length++;
+    return this;
+  }
+
+  pop() {
+    if (!this.top) {
+      return null;
+    }
+    if (this.top === this.bottom) {
+      this.bottom = null;
+    }
+
+    const hlodingPointer = this.top;
+    this.top = this.top.next;
+    this.length--;
+    return hlodingPointer;
+  }
+}
+
+const myStack = new Stack();
+console.log(myStack.push('stackoverflow'));
+console.log(myStack.push('udemy'));
+console.log(myStack.peek()); // udemy
+console.log(myStack.pop());
+
+
+/**
+ * Stack (with Array)
+ */
+class Stack {
+  constructor() {
+    this.array = [];
+  }
+
+  peek() {
+    return this.array[this.array.length - 1];
+  }
+
+  push(value) {
+    this.array.push(value);
+    return this;
+  }
+
+  pop() {
+    this.array.pop();
+    return this;
+  }
+}
+
+const myStack = new Stack();
+console.log(myStack.push('google'));
+console.log(myStack.push('facebook'));
+console.log(myStack.push('twitter'));
+console.log(myStack.peek());
+```
+
+### Stack Implementation in PHP
+``` PHP
+class Stack 
+{
+    protected $stack;
+    protected $size;
+
+    public function __construct($size)
+    {
+        $this->stack = array();
+        $this->size = $size;
+    }
+
+    public function push($item)
+    {
+        if (count($this->stack) < $this->size) {
+            return array_unshift($this->stack, $item);
+        } else {
+            throw new RuntimeException('Stack is Full (overflow)');
+        }
+    }
+
+    public function pop()
+    {
+        if(empty($this->stack)) {
+            return new RuntimeException('Stack is Empty');
+        } else {
+            return array_shift($this->stack);
+        }
+    }
+
+    public function peek()
+    {
+        return current($this->stack);
+    }
+}
+
+$myBrowserHistory = new Stack(3);
+var_dump($myBrowserHistory->push('google.com'));
+var_dump($myBrowserHistory->push('twitter.com'));
+var_dump($myBrowserHistory->peek()); // twitter.com
+var_dump($myBrowserHistory->pop());
+
 ```
