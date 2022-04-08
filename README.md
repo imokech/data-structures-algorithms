@@ -785,7 +785,7 @@ var_dump($myBrowserHistory->pop());
 
 ```
 More information (for the curious!)
- #  | Source 
+ Title  | Source 
 --- | --- 
 Visual Stack | https://visualgo.net/en/list?mode=Stack
 Stack Data Structure | https://www.programiz.com/dsa/stack
@@ -896,7 +896,7 @@ var_dump($restaurantQueue->dequeue());
 ```
 
 More information (for the curious!)
- #  | Source 
+ Title  | Source 
 --- | --- 
 Visual Queue | https://visualgo.net/en/list?mode=Queue
 Queue Data Structure | https://www.programiz.com/dsa/queue
