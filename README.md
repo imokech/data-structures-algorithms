@@ -6,15 +6,13 @@ Data structures are very important components for computers and programming
 languages. Along with data structures, it is also very important to know how to solve
 a problem or find a solution using these data structures.
 
-(it will be completed ...)
-
 ## Table of Progress
 
 Data Structure | Languages | Examples | Algorithm
 --- | --- | --- | --- 
 Arrays | Javascript | ✔ | Not yet
-Stacks | Javascript, PHP | Not yet | Not yet
-Queues | - | Not yet | Not yet
+Stacks | Javascript, PHP | ✔ | Not yet
+Queues | Javascript, PHP | ✔ | Not yet
 Linked Lists | Javascript, PHP | ✔ | reverse
 Trees | - | Not yet | Not yet
 Tries | - | Not yet | Not yet
@@ -523,7 +521,7 @@ unset($linkedList[0]); // O(n)
 <br>
 
 More information (for the curious!)
-Type | Source 
+ #  | Source 
 --- | --- 
 Array Vs Linked List | https://www.youtube.com/watch?v=DyG9S9nAlUM
 Visual LinkedList | https://visualgo.net/en/list?slide=1
@@ -639,7 +637,7 @@ myDoublyLinkedList.insert(1);
 
 ## Stack
 
-<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/stack.png">
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/stack.png" width="60%">
 
 Action | Big O 
 --- | --- 
@@ -786,3 +784,119 @@ var_dump($myBrowserHistory->peek()); // twitter.com
 var_dump($myBrowserHistory->pop());
 
 ```
+More information (for the curious!)
+ #  | Source 
+--- | --- 
+Visual Stack | https://visualgo.net/en/list?mode=Stack
+Stack Data Structure | https://www.programiz.com/dsa/stack
+
+
+## Queue
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/queue.png">
+
+Action | Big O 
+--- | --- 
+Lookup | O(n)
+Enqueue | O(1) 
+Dequeue | O(1)
+Peek | O1n)
+
+Queue follows the First In First Out (FIFO) rule - the item that goes in first is the item that comes out first.
+In the above image, since 1 was kept in the queue before 2, it is the first to be removed from the queue as well. It follows the FIFO rule.
+
+### Stack Implementation in Javascript
+
+``` JAVASCRIPT
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.length = 0;
+  }
+
+  peek() {
+    return this.first;
+  }
+
+  enqueue(value) {
+    const newNode = new Node(value);
+    if(this.length === 0) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    this.length++;
+    return this;
+  }
+
+  dequeue() {
+    if (!this.first){
+      return null;
+    }
+    if (this.first === this.last) {
+      this.last = null;
+    }
+    const hlodingPointer = this.first;
+    this.first = this.first.next;
+    this.length--;
+    return hlodingPointer;
+  }
+}
+
+const myQueue = new Queue();
+console.log(myQueue.enqueue('first person'));
+console.log(myQueue.enqueue('second person'));
+console.log(myQueue.enqueue('third person'));
+console.log(myQueue.peek()); // first person
+console.log(myQueue.dequeue());
+```
+
+### Stack Implementation in PHP
+
+``` PHP
+class Queue 
+{
+    protected $queue;
+
+    public function __construct()
+    {
+        $this->queue = array();
+    }
+
+    public function enqueue($item)
+    {
+        array_push($this->queue, $item);
+        return $this->queue;
+    }
+
+    public function dequeue()
+    {
+        if(empty($this->queue)) {
+            return new RuntimeException('There is no Queue');
+        } else {
+            return array_shift($this->queue);
+        }
+    }
+
+    public function peek()
+    {
+        // Queue is ordered list, so we can use 0 index to get first input
+        return $this->queue[0] ?? null;
+    }
+}
+
+$restaurantQueue = new Queue();
+var_dump($restaurantQueue->enqueue('first person'));
+var_dump($restaurantQueue->enqueue('second person'));
+var_dump($restaurantQueue->enqueue('third person'));
+var_dump($restaurantQueue->peek()); // first person
+var_dump($restaurantQueue->dequeue());
+```
+
+More information (for the curious!)
+ #  | Source 
+--- | --- 
+Visual Queue | https://visualgo.net/en/list?mode=Queue
+Queue Data Structure | https://www.programiz.com/dsa/queue
