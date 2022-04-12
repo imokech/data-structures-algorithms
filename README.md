@@ -15,7 +15,6 @@ Stacks | Javascript, PHP | ✔ | Not yet
 Queues | Javascript, PHP | ✔ | Not yet
 Linked Lists | Javascript, PHP | ✔ | reverse
 Trees | - | Not yet | Not yet
-Tries | - | Not yet | Not yet
 Graphs | - | Not yet | Not yet
 Hash Tables | Javascript | ✔ | Not yet
 
