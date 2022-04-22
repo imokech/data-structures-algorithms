@@ -23,16 +23,9 @@ Hash Tables | Javascript | ✔
   1. [Array](#array)
   2. [Hash Tables](#hash-tables)
   3. [Linked List](#linked-list)
-    3.1 [Doubly Linked List](#doubly-linked-list)
   4. [Stack](#stack)
   5. [Queue](#queue)
   6. [Tree](#tree)
-   6.1 [Binary Search Tree](#binary-search-tree)
-    6.2 [Binary Search Heap](#binary-search-heap)
-    6.3 [AVL Trees](#AVL-trees)
-    6.4 [Red Black Trees](#red-black-trees)
-    6.5 [Trie](#trie)
-
 
 
 ## Array
@@ -542,8 +535,8 @@ unset($linkedList[0]); // O(n)
 More information (for the curious!)
  #  | Source 
 --- | --- 
-Array Vs Linked List | https://www.youtube.com/watch?v=DyG9S9nAlUM
-Visual LinkedList | https://visualgo.net/en/list?slide=1
+Array Vs Linked List | <a href="https://www.youtube.com/watch?v=DyG9S9nAlUM">Array Vs Linked List</a>
+Visual LinkedList | <a href="https://visualgo.net/en/list?slide=1">Visual LinkedList</a>
 
 <br>
 <br>
@@ -930,8 +923,10 @@ Queue Data Structure | <a href="https://www.programiz.com/dsa/queue">Programiz</
 
 **[⬆ back to top](#table-of-contents)**
 ## Tree
-<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/nodes-edges.png" width="49%">
-<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/height-depth.png" width="39%">
+<p float="left">
+  <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/nodes-edges.png" width="49%">
+  <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/height-depth.png" width="39%">
+</p>
 
 A tree whose elements have at most 2 children is called a binary tree. Since each element in a binary tree can have only 2 children, we typically name them the left and right child. Trees are a special Abstract Data Type (ADT) that
 represents hierarchical data.
@@ -1236,3 +1231,6 @@ More information (for the curious!)
 Visual Tree | <a href="https://visualgo.net/en/bst?slide=1">Visual Tree</a>
 Trees (Full) | <a href="https://www.geeksforgeeks.org/binary-tree-data-structure/">GeeksForGeeks</a>
 Trees (Summary) | <a href="https://www.programiz.com/dsa/trees">Programiz</a>
+
+
+**[⬆ back to top](#table-of-contents)**
