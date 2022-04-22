@@ -533,7 +533,7 @@ unset($linkedList[0]); // O(n)
 <br>
 
 More information (for the curious!)
- #  | Source 
+ Title  | Source 
 --- | --- 
 Array Vs Linked List | <a href="https://www.youtube.com/watch?v=DyG9S9nAlUM">Array Vs Linked List</a>
 Visual LinkedList | <a href="https://visualgo.net/en/list?slide=1">Visual LinkedList</a>
