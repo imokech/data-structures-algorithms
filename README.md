@@ -8,15 +8,32 @@ a problem or find a solution using these data structures.
 
 ## Table of Progress
 
-Data Structure | Languages | Examples | Algorithm
---- | --- | --- | --- 
-Arrays | Javascript | ✔ | Not yet
-Stacks | Javascript, PHP | ✔ | Not yet
-Queues | Javascript, PHP | ✔ | Not yet
-Linked Lists | Javascript, PHP | ✔ | reverse
-Trees | - | Not yet | Not yet
-Graphs | - | Not yet | Not yet
-Hash Tables | Javascript | ✔ | Not yet
+Data Structure | Languages | Examples 
+--- | --- | --- 
+Arrays | Javascript | ✔ 
+Stacks | Javascript, PHP | ✔ 
+Queues | Javascript, PHP | ✔ 
+Linked Lists | Javascript, PHP | ✔ 
+Trees | Javascript, PHP | ✔ 
+Graphs | - | Not yet 
+Hash Tables | Javascript | ✔ 
+
+
+## Table of Contents
+  1. [Array](#array)
+  2. [Hash Tables](#hash-tables)
+  3. [Linked List](#linked-list)
+    3.1 [Doubly Linked List](#doubly-linked-list)
+  4. [Stack](#stack)
+  5. [Queue](#queue)
+  6. [Tree](#tree)
+   6.1 [Binary Search Tree](#binary-search-tree)
+    6.2 [Binary Search Heap](#binary-search-heap)
+    6.3 [AVL Trees](#AVL-trees)
+    6.4 [Red Black Trees](#red-black-trees)
+    6.5 [Trie](#trie)
+
+
 
 ## Array
 
@@ -53,6 +70,8 @@ for( var i = 0; i < someArray.length; i++){  // O(n)
 <br>
 <br>
 
+
+**[⬆ back to top](#table-of-contents)**
 ## Hash Tables
 <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/hash_collision.png" alt="imokech - Hash Table">
 
@@ -164,6 +183,7 @@ console.log(myHash.get('peach'))
 <br>
 <br>
 
+**[⬆ back to top](#table-of-contents)**
 ## Linked List
 A linked list is a linear data structure, in which the elements are not stored at contiguous memory locations. The elements in a linked list are linked using pointers as shown in the below image:
 <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/linked-list.png" alt="imokech - linked list" width="80%">
@@ -528,6 +548,7 @@ Visual LinkedList | https://visualgo.net/en/list?slide=1
 <br>
 <br>
 
+**[⬆ back to top](#table-of-contents)**
 ## Doubly Linked List
 <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/doubly_linked_list.gif">
 
@@ -634,6 +655,7 @@ myDoublyLinkedList.insert(3, 5000);
 myDoublyLinkedList.insert(1);
 ```
 
+**[⬆ back to top](#table-of-contents)**
 ## Stack
 
 <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/stack.png" width="60%">
@@ -786,10 +808,13 @@ var_dump($myBrowserHistory->pop());
 More information (for the curious!)
  Title  | Source 
 --- | --- 
-Visual Stack | https://visualgo.net/en/list?mode=Stack
-Stack Data Structure | https://www.programiz.com/dsa/stack
+Visual Stack | <a href="https://visualgo.net/en/list?mode=Stack">Visual Stack</a>
+Stack Data Structure | <a href="https://www.programiz.com/dsa/stack">Programiz</a>
 
+<br>
+<br>
 
+**[⬆ back to top](#table-of-contents)**
 ## Queue
 <img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/queue.png">
 
@@ -897,5 +922,317 @@ var_dump($restaurantQueue->dequeue());
 More information (for the curious!)
  Title  | Source 
 --- | --- 
-Visual Queue | https://visualgo.net/en/list?mode=Queue
-Queue Data Structure | https://www.programiz.com/dsa/queue
+Visual Queue | <a href="https://visualgo.net/en/list?mode=Queue">Visual Queue</a>
+Queue Data Structure | <a href="https://www.programiz.com/dsa/queue">Programiz</a>
+
+<br>
+<br>
+
+**[⬆ back to top](#table-of-contents)**
+## Tree
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/nodes-edges.png" width="49%">
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/height-depth.png" width="39%">
+
+A tree whose elements have at most 2 children is called a binary tree. Since each element in a binary tree can have only 2 children, we typically name them the left and right child. Trees are a special Abstract Data Type (ADT) that
+represents hierarchical data.
+
+
+Other Data Structures of Tree 
+ Name  | Completed
+--- | --- 
+Balanced vs Unbalanced | - [] uncompleted 
+BST | - [x] completed 
+BSH | - [ ] uncompleted 
+AVL | - [x] completed 
+Red Black | - [x] completed 
+Trie | - [ ] uncompleted 
+
+### Tree Implementation in PHP
+``` PHP
+// Implementation Refrence : Tylere Willis (tylerewillis.com)
+class Node
+{
+    function __construct($data)
+    {
+        $this->data = $data;
+        $this->parent = null;
+        $this->children = array();
+    }
+}
+
+class Tree
+{
+    public function __construct($data)
+    {
+        $node = new Node($data);
+        $this->root = $node;
+        $this->levels = 0;
+    }
+
+    public function add($data, $toParent)
+    {
+        $child = new Node($data);
+        $parent = false;
+        $results = $this->traverseBreadthFirst();
+
+        foreach ($results as $result) {
+            if ($result->data == $toParent) {
+
+                // Add as child to node
+                $result->children[] = $child;
+
+                // Add node as child's parent
+                $child->parent = $result->data;
+
+                // Parent located so true
+                $parent = true;
+            }
+        }
+
+        if ($parent == false) {
+            echo "Error: Cannot add node to non-existent parent.";
+        }
+    }
+
+    public function remove($data, $fromParent) {
+        $results = $this->traverseBreadthFirst();
+        foreach($results as $result) {
+            if($result->data == $fromParent) {
+                $i = 0;
+                foreach($result->children as $child) {
+                    if($child->data == $data) {
+                        unset($result->children[$i]);
+                        break;
+                    }
+                    $i++;
+                }
+            }
+        }
+    }
+
+    public function contains($data) {
+        $results = $this->traverseBreadthFirst();
+        foreach($results as $result) {
+            if($result->data == $data) {
+                return $result;
+            }
+        }
+    }
+
+    public function traverseDepthFirst() {
+        function recurse($currentNode, &$results = array()) {
+            $length = count($currentNode->children);
+            for ($i = 0; $i < $length; $i++) {
+                $results[] = $currentNode->children[$i];
+                recurse($currentNode->children[$i], $results);
+            }
+        }
+        recurse($this->root, $results);
+        return $results;
+    }
+    
+    // Breadth-first traversal
+    public function traverseBreadthFirst() {
+        $queue = array();
+        $queueIndex = 1;
+        $results = array();
+    
+        array_push($queue, $this->root);
+        array_push($results, $this->root);
+    
+        $currentTree = $queue[0];
+        unset($queue[0]);
+    
+        while($currentTree) {
+            $length = count($currentTree->children);
+            for ($i = 0; $i < $length; $i++) {
+                array_push($queue, $currentTree->children[$i]);
+                array_push($results, $currentTree->children[$i]);
+            }
+            if(count($queue) > 0) {
+                $currentTree = $queue[$queueIndex];
+                unset($queue[$queueIndex]);
+            } else {
+                $currentTree = false;
+            }
+            $queueIndex++;
+        }
+        return $results;
+    }
+}
+
+$tree = new Tree(10);
+var_dump($tree->add(5, 10));
+var_dump($tree);
+var_dump($tree->remove(5, 10));
+var_dump($tree);
+
+```
+<br>
+
+### Binary Search Tree
+Action | Big O 
+--- | --- 
+Lookup | O(log N)
+Insert | O(log N)
+Delete |O(log N)
+
+
+### Binary Search Tree Implementation in Javascript
+
+
+``` JAVASCRIPT
+class Node {
+  constructor(value) {
+    this.left = null; 
+    this.right = null; 
+    this.value = value; 
+  }
+}
+
+class BinarySearchTree 
+{
+  constructor(){
+    this.root = null;
+  }
+  
+  insert(value) {
+    const newNode = new Node(value);
+    if (this.root == null) {
+      this.root = newNode
+    } else {
+      let currentNode = this.root;
+      while(true) {
+        if (value < currentNode.value) {
+          // Left
+          if (!currentNode.left) {
+            currentNode.left = newNode;
+            return this;
+          }
+          currentNode = currentNode.left;
+        } else {
+          // Right
+          if (!currentNode.right) {
+            currentNode.right = newNode;
+            return this;
+          }
+          currentNode = currentNode.right;
+        }
+      }
+    }
+  }
+
+  lookup(value) {
+    if (!this.root) {
+      return false;
+    }
+    let currentNode = this.root;
+    while(currentNode) {
+      if (value < currentNode.value) {
+        currentNode = currentNode.left;
+      } else if (value > currentNode.value) {
+        currentNode = currentNode.right;
+      } else if (value === currentNode.value) {
+        return currentNode;
+      }
+    }
+    return false;
+  }
+
+  remove(value) {
+    if(!this.root) {
+      return false;
+    }
+
+    let currentNode = this.root;
+    let parentNode = null;
+    while(currentNode) {
+      if (value < currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.left;
+      }else if (value > currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.right;
+      } else if (currentNode.value === value) {
+        if (currentNode.right === null) {
+          if (parentNode === null) {
+            this.root = currentNode.left;
+          } else {
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = currentNode.left;
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = currentNode.left;
+            }
+          }
+        } else if (currentNode.right.left === null) {
+          if (parentNode === null) {
+            this.root = currentNode.left;
+          } else {
+            currentNode.right.left = currentNode.left;
+
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = currentNode.right;
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = currentNode.right;
+            }
+          }
+        } else {
+          let leftmost = currentNode.right.left;
+          let leftmostParent = currentNode.right;
+          while (leftmost.left !== null) {
+            leftmostParent = leftmost;
+            leftmost = leftmost.left;
+          }
+
+          leftmostParent.left = leftmost.right;
+          leftmost.left = currentNode.left;
+          leftmost.right = currentNode.right;
+
+          if (parentNode === null) {
+            this.root = leftmost;
+          } else {
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = leftmost;
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = leftmost;
+            }
+          }
+        }
+        return true;
+      }
+    }
+  }
+}
+
+const tree = new BinarySearchTree();
+
+console.log(tree.insert(9));
+console.log(tree.insert(8));
+console.log(tree.insert(7));
+console.log(tree.lookup(8));
+console.log(tree.remove(7));
+
+```
+
+
+### AVL Tree
+An AVL tree is a self-balancing binary search tree where the heights of two child
+subtrees of a node will differ by a maximum of 1. If the height increases, in any case,
+there will be a rebalance to make the height difference to 1. This gives the AVL tree
+an added advantage of logarithmic complexity for different operations.
+
+### Red-Black Tree
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithm/main/assets/img/Red-black_tree.svg" width="39%">
+
+A red-black tree is a self-balanced binary search tree with some extra properties,
+which is the color. Each node in the binary tree stores one extra bit of information,
+which is known as color and can have either red or black as values. Like an AVL
+tree, a red-black tree is also used for real-time applications as the average and worst
+case complexity is also logarithmic.
+
+More information (for the curious!)
+ Title  | Source 
+--- | --- 
+Visual Tree | <a href="https://visualgo.net/en/bst?slide=1">Visual Tree</a>
+Trees (Full) | <a href="https://www.geeksforgeeks.org/binary-tree-data-structure/">GeeksForGeeks</a>
+Trees (Summary) | <a href="https://www.programiz.com/dsa/trees">Programiz</a>
