@@ -935,16 +935,16 @@ represents hierarchical data.
 Other Data Structures of Tree 
  Name  | Completed
 --- | --- 
-Balanced vs Unbalanced | - [] uncompleted 
-BST | - [x] completed 
-BSH | - [ ] uncompleted 
-AVL | - [x] completed 
-Red Black | - [x] completed 
-Trie | - [ ] uncompleted 
+Balanced vs Unbalanced | -
+BST | ✔ 
+BSH | -
+AVL | ✔ 
+Red Black | ✔ 
+Trie | -
 
 ### Tree Implementation in PHP
 ``` PHP
-// Implementation Refrence : Tylere Willis (tylerewillis.com)
+// Implementation : Tylere Willis (tylerewillis.com)
 class Node
 {
     function __construct($data)
