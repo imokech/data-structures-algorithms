@@ -15,7 +15,7 @@ Stacks | Javascript, PHP | ✔
 Queues | Javascript, PHP | ✔ 
 Linked Lists | Javascript, PHP | ✔ 
 Trees | Javascript, PHP | ✔ 
-Graphs | - | Not yet 
+Graphs | - | 🚧
 Hash Tables | Javascript | ✔ 
 
 
@@ -935,12 +935,12 @@ represents hierarchical data.
 Other Data Structures of Tree 
  Name  | Completed
 --- | --- 
-Balanced vs Unbalanced | -
+Balanced vs Unbalanced | 🚧
 BST | ✔ 
-BSH | -
+BSH | 🚧
 AVL | ✔ 
 Red Black | ✔ 
-Trie | -
+Trie | 🚧
 
 ### Tree Implementation in PHP
 ``` PHP
