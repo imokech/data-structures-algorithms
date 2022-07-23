@@ -15,7 +15,7 @@ Stacks | Javascript, PHP | ✔
 Queues | Javascript, PHP | ✔ 
 Linked Lists | Javascript, PHP | ✔ 
 Trees | Javascript, PHP | ✔ 
-Graphs | - | 🚧
+Graphs | Javascript | ✔
 Hash Tables | Javascript | ✔ 
 
 
@@ -26,6 +26,7 @@ Hash Tables | Javascript | ✔
   4. [Stack](#stack)
   5. [Queue](#queue)
   6. [Tree](#tree)
+  7. [Graphs](#graph)
 
 
 ## Array
@@ -935,12 +936,12 @@ represents hierarchical data.
 Other Data Structures of Tree 
  Name  | Completed
 --- | --- 
-Balanced vs Unbalanced | 🚧
+Balanced vs Unbalanced | -
 BST | ✔ 
-BSH | 🚧
+BSH | -
 AVL | ✔ 
 Red Black | ✔ 
-Trie | 🚧
+Trie | -
 
 ### Tree Implementation in PHP
 ``` PHP
@@ -1232,5 +1233,74 @@ Visual Tree | <a href="https://visualgo.net/en/bst?slide=1">Visual Tree</a>
 Trees (Full) | <a href="https://www.geeksforgeeks.org/binary-tree-data-structure/">GeeksForGeeks</a>
 Trees (Summary) | <a href="https://www.programiz.com/dsa/trees">Programiz</a>
 
+**[⬆ back to top](#table-of-contents)**
+## Graphs
+
+
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithms/main/assets/img/graph-var.png" alt="imokech - Graph">
+<img src="https://raw.githubusercontent.com/imokech/data-structures-algorithms/main/assets/img/graph1.png" alt="imokech - Graph" width="50%">
+
+
+
+A graph data structure consists of a finite (and possibly mutable) set of vertices (also called nodes or points), together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph.  (<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">Wikipedia</a>)
+
+<br>
+
+### Graph Implementation in Javascript
+
+``` JAVASCRIPT
+
+class Graph {
+  constructor() {
+    this.numberOfNodes = 0;
+    this.adjacentList = {};
+  }
+  addVertex(node) {
+    this.adjacentList[node] = [];
+    this.numberOfNodes++;
+  }
+  addEdge(node1, node2) {
+    // undirected Graph
+    this.adjacentList[node1].push(node2);
+    this.adjacentList[node2].push(node1);
+  }
+
+  showConnections() {
+    const allNodes = Object.keys(this.adjacentList);
+    for (let node of allNodes) {
+      let nodeConnections = this.adjacentList[node];
+      let connections = "";
+      let vertex;
+      for (vertex of nodeConnections) {
+        connections += vertex + " ";
+      }
+      console.log(node + " ---> " + connections)
+    }
+  }
+
+}
+
+const myGraph = new Graph();
+myGraph.addVertex('0');
+myGraph.addVertex('1');
+myGraph.addVertex('2');
+myGraph.addVertex('3');
+myGraph.addVertex('4');
+myGraph.addVertex('5');
+myGraph.addVertex('6');
+myGraph.addEdge('3', '1');
+myGraph.addEdge('3', '4');
+myGraph.addEdge('4', '2');
+myGraph.addEdge('4', '5');
+myGraph.addEdge('1', '2');
+myGraph.addEdge('1', '0');
+myGraph.addEdge('0', '2');
+myGraph.addEdge('6', '5');
+
+myGraph.showConnections();
+
+```
+<br>
+<br>
 
 **[⬆ back to top](#table-of-contents)**
